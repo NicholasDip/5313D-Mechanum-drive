@@ -5,6 +5,7 @@ This project is a PROS-based VEX V5 robot codebase using RoboDash for autonomous
 
 ## Features
 - Modular autonomous routines with RoboDash Selector
+- Mechanum Drive Setup Code
 - Real-time motor temperature monitoring
 - Organized motor definitions and drive control
 - Easy-to-edit autonomous code in `src/Auton.cpp`
