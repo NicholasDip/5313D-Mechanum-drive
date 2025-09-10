@@ -11,10 +11,10 @@ pros::Motor Back_left(3, pros::v5::MotorGears::blue);
 pros::Motor Front_left(2, pros::v5::MotorGears::blue);
 pros::Motor front_right(-3, pros::v5::MotorGears::blue);
 pros::Motor back_right(-12, pros::v5::MotorGears::blue);
-pros::Motor Top_front_Left5(5, pros::v5::MotorGears::green);
-pros::Motor Top_front_Right(6, pros::v5::MotorGears::green);
-pros::Motor Top_back_Left(7, pros::v5::MotorGears::green);
-pros::Motor Top_back_Right(8, pros::v5::MotorGears::green);
+pros::Motor Top_front_Left(, pros::v5::MotorGears::green);
+pros::Motor Top_front_Right(, pros::v5::MotorGears::green);
+pros::Motor Top_back_Left(, pros::v5::MotorGears::green);
+pros::Motor Top_back_Right(, pros::v5::MotorGears::green);
 
 
 /******************************************************************************
@@ -91,10 +91,10 @@ void opcontrol() {
        console->println("Front_left: " + std::to_string(Front_left.get_temperature()));
        console->println("Front_right: " + std::to_string(front_right.get_temperature()));
        console->println("Back_right: " + std::to_string(back_right.get_temperature()));
-       console->println("Top_front_Left: " + std::to_string(Top_front_Left.get_temperature()));
-       console->println("Top_front_Right: " + std::to_string(Top_front_Right.get_temperature()));
-       console->println("Top_back_Left: " + std::to_string(Top_back_Left.get_temperature()));
-       console->println("Top_back_Right: " + std::to_string(Top_back_Right.get_temperature()));
+	   console->println("Top_front_Left: " + std::to_string(Top_front_Left.get_temperature()));
+	   console->println("Top_front_Right: " + std::to_string(Top_front_Right.get_temperature()));
+	   console->println("Top_back_Left: " + std::to_string(Top_back_Left.get_temperature()));
+	   console->println("Top_back_Right: " + std::to_string(Top_back_Right.get_temperature()));
         drive_control(master);
         pros::delay(20); // 50Hz loop
     }
