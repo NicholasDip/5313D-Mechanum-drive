@@ -7,10 +7,10 @@
  *                              Motor Definitions
  ******************************************************************************/
 // Drive Train
-pros::Motor Back_left(3, pros::v5::MotorGears::blue);
-pros::Motor Front_left(2, pros::v5::MotorGears::blue);
-pros::Motor front_right(-3, pros::v5::MotorGears::blue);
-pros::Motor back_right(-12, pros::v5::MotorGears::blue);
+pros::Motor Back_left(1, pros::v5::MotorGears::blue);
+pros::Motor Front_left(10, pros::v5::MotorGears::blue);
+pros::Motor front_right(-11, pros::v5::MotorGears::blue);
+pros::Motor back_right(-20, pros::v5::MotorGears::blue);
 pros::Motor Top_front_Left(, pros::v5::MotorGears::green);
 pros::Motor Top_front_Right(, pros::v5::MotorGears::green);
 pros::Motor Top_back_Left(, pros::v5::MotorGears::green);
