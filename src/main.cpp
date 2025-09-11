@@ -11,10 +11,10 @@ pros::Motor Back_left(1, pros::v5::MotorGears::blue);
 pros::Motor Front_left(10, pros::v5::MotorGears::blue);
 pros::Motor front_right(-11, pros::v5::MotorGears::blue);
 pros::Motor back_right(-20, pros::v5::MotorGears::blue);
-pros::Motor Top_front_Left(, pros::v5::MotorGears::green);
-pros::Motor Top_front_Right(, pros::v5::MotorGears::green);
-pros::Motor Top_back_Left(, pros::v5::MotorGears::green);
-pros::Motor Top_back_Right(, pros::v5::MotorGears::green);
+pros::Motor Top_front_Left(5, pros::v5::MotorGears::green);
+pros::Motor Top_front_Right(15, pros::v5::MotorGears::green);
+pros::Motor Top_back_Left(17, pros::v5::MotorGears::green);
+pros::Motor Top_back_Right(6, pros::v5::MotorGears::green);
 
 
 /******************************************************************************
@@ -36,6 +36,11 @@ rd::Console* console = nullptr;
 
 void initialize() {
     console = new rd::Console("Motor Temps");
+
+Back_left.set_brake_mode(pros::E_MOTOR_BRAKE_COAST);
+Front_left.set_brake_mode(pros::E_MOTOR_BRAKE_COAST);
+front_right.set_brake_mode(pros::E_MOTOR_BRAKE_COAST);
+back_right.set_brake_mode(pros::E_MOTOR_BRAKE_COAST);
 } 
 
 /**
@@ -67,23 +72,23 @@ void competition_initialize() {}
  * will be stopped. Re-enabling the robot will restart the task, not re-start it
  * from where it left off.
  */
-void autonomous() {}
 
-/**
- * Runs the operator control code. This function will be started in its own task
- * with the default priority and stack size whenever the robot is enabled via
- * the Field Management System or the VEX Competition Switch in the operator
- * control mode.
- *
- * If no competition control is connected, this function will run immediately
- * following initialize().
- *
- * If the robot is disabled or communications is lost, the
- * operator control task will be stopped. Re-enabling the robot will restart the
- * task, not resume it from where it left off.
- */
+void drive_control(pros::Controller& master) {
+    int y = -master.get_analog(pros::E_CONTROLLER_ANALOG_LEFT_Y);
+    int x = master.get_analog(pros::E_CONTROLLER_ANALOG_LEFT_X);
+    int turn = -master.get_analog(pros::E_CONTROLLER_ANALOG_RIGHT_X);
+    
+    Back_left.move(y + x + turn);
+    Front_left.move(y - x + turn);
+    back_right.move(y - x - turn);
+    front_right.move(y + x - turn);
+}
+
+
 void opcontrol() {
     pros::Controller master(pros::E_CONTROLLER_MASTER);
+    int lastClearTime = pros::millis();
+    const int clearInterval = 2000; // Clear every 2 seconds
     
     while (true) {
         // RoboDash monitoring
@@ -96,18 +101,13 @@ void opcontrol() {
 	   console->println("Top_back_Left: " + std::to_string(Top_back_Left.get_temperature()));
 	   console->println("Top_back_Right: " + std::to_string(Top_back_Right.get_temperature()));
         drive_control(master);
-        pros::delay(20); // 50Hz loop
+        
+        if (pros::millis() - lastClearTime > clearInterval) {
+            console->clear();
+            lastClearTime = pros::millis();
+        }
+        pros::delay(20);
     }
 }
 
 
-void drive_control(pros::Controller& master) {
-    int y = -master.get_analog(pros::E_CONTROLLER_ANALOG_LEFT_Y);
-    int x = master.get_analog(pros::E_CONTROLLER_ANALOG_LEFT_X);
-    int turn = -master.get_analog(pros::E_CONTROLLER_ANALOG_RIGHT_X);
-    
-    Back_left.move(y + x + turn);
-    Front_left.move(y - x + turn);
-    back_right.move(y - x - turn);
-    front_right.move(y + x - turn);
-}
