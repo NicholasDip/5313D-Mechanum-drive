@@ -44,7 +44,7 @@ const double TICKS_PER_REV = 360.0;
 /******************************************************************************
  *                              Odom Definition
  ******************************************************************************/
-// Create odom object (invert flags may need flipping after a push test)
+// Create odom object (invert flags Cuz Odom A fuckin asshole)
 Odom odom(vertical_tracking, horizontal_tracking, imu, WHEEL_DIAMETER,
          true,  // invertVertical
           false); // invertHorizontal
@@ -65,7 +65,7 @@ void on_center_button() {
 	}
 }
 
-// Declare console pointer at file scope
+// Declare ts bitch
 rd::Console* console = nullptr;
 bool intake_flex_reversed = false;
 
@@ -204,7 +204,7 @@ void intake_control(pros::Controller& master) {
     }
     last_x_state = current_x_state;
     
-    // Normal intake controls
+    // Normal intake controls (Why am i writing these comments)
     if (master.get_digital(pros::E_CONTROLLER_DIGITAL_R1)) {
         intake_bottom.move_velocity(600);
         intake_top.move_velocity(200);
